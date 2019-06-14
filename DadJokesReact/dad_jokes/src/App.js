@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import {Link, Route, NavLink, withRouter} from 'react-router-dom';
 import axios from 'axios';
 import Login from './components/login'
+import Register from './components/register'
 
 class App extends Component {
   constructor() {
     super();
     this.state ={
+      username: '',
+      password: '',
     }
   }
+
   handleInput = e => {
     this.setState({ [e.target.name]: e.target.value});
   }
-
-
 
 
   render() {
@@ -34,8 +36,8 @@ class App extends Component {
               <button>Register</button>
             </Link>
         </div>
-        <Route path="/login" render={props => <Login {...props} username={this.state.username} password={this.state.password}  handleInput={this.handleInput} /> } />
-        {/* <Route exact path="/register" render={props => <Register {...props} userId={this.state.userId} submitRegister={this.submitRegister} /> } /> */}
+        <Route path="/login" render={props => <Login {...props}  handleInput={this.handleInput} /> } />
+        <Route exact path="/register" render={props => <Register {...props} userId={this.state.userId} submitRegister={this.submitRegister}  handleInput={this.handleInput} /> } />
 
       </div>
     );

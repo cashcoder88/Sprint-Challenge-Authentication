@@ -65,19 +65,20 @@ state = {
 
 handleSubmit = event => {
     event.preventDefault();
-    const endpoint = 'http://localhost:3300/api/login';
     axios
-      .post(endpoint, this.state)
+      .post('http://localhost:3300/api/login', this.state)
       .then(res => {
         localStorage.setItem('jwt', res.data.token);
-        this.props.history.push('/users');
+        this.props.history.push('/jokes');
       })
       .catch(error => {
         console.error(error);
       });
   };
 
-
+  handleInput = e => {
+    this.setState({ [e.target.name]: e.target.value});
+  }
 
     render() {
         return (
@@ -94,7 +95,7 @@ handleSubmit = event => {
                                 placeholder="Username"
                                 name="username"
                                 value={this.state.username}
-                                onChange={this.props.handleInput}
+                                onChange={this.handleInput}
                                 />
                                 <label>Password</label>
                                 <Input 
@@ -102,7 +103,7 @@ handleSubmit = event => {
                                 placeholder='Password'
                                 name="password"
                                 value={this.state.password}
-                                onChange={this.props.handleInput}
+                                onChange={this.handleInput}
                                 />
                             </BoxDiv>
                         <Button onClick={this.handleSubmit}>Login</Button>
