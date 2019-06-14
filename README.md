@@ -35,6 +35,11 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 Self Study Questions:
 
+1. In short, sessions provide a way to persist data across requests. This way we can persist users authentication credentials (admin vs customer for example) and that they don't have to keep re-entering their credentials when they make a new request to the server. 
+2. Bcrypt helps us store passwords as a hash. What this essentially does is turn a simple password like "password" into a complex and secure string of a much larger length.
+3. Bcrypt slows down hackers in a number of ways. We hash passwords, and the attacker would have to know the hash, the algorithm, and the number of rounds hashed in order to crack that. We also use bcrypt to make middleware that makes sure someone has the proper credentials when using a particular page of an app.
+4. The header, the payload, and the signature.
+
 ## Project Set Up
 
 Follow these steps to set up and work on your project:
@@ -43,8 +48,8 @@ Follow these steps to set up and work on your project:
 - [x] Add PM as collaborator on Github.
 - [x] Clone your OWN version of Repo (Not Lambda's by mistake!).
 - [x] Create a new Branch on the clone: git checkout -b `<firstName-lastName>`.
-- [ ] Implement the project on this Branch, committing changes regularly.
-- [ ] Push commits: git push origin `<firstName-lastName>`.
+- [x] Implement the project on this Branch, committing changes regularly.
+- [x] Push commits: git push origin `<firstName-lastName>`.
 
 Follow these steps for completing your project:
 
