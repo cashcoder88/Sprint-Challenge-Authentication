@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const { authenticate } = require('../auth/authenticate');
 const Model = require('./model.js');
 const secrets = require('../auth/secret.js')
+const jwt = require('jsonwebtoken');
 
 module.exports = server => {
   server.post('/api/register', register);
@@ -30,14 +31,23 @@ function register(req, res) {
 function login(req, res) {
   // implement user login
   let {username, password} = req.body;
-
+  console.log(req.body)
   Model.findBy({username}).first()
   .then(user => {
     if (user && bcrypt.compareSync(password, user.password)) {
-      const token = 
+      const token = makeNewToken(user);
+
+      res.status(200).json({
+        message: `Welcome to the app ${user.username}, enjoy the dad jokes`,
+        token
+      });
+    } else {
+      res.status(401).json({ errMessage: 'Invalid token or no token present'})
     }
   })
-
+  .catch(err => {
+    res.status(500).json(err)
+  })
 }
 
 function makeNewToken(user) {
@@ -46,8 +56,8 @@ function makeNewToken(user) {
     username: user.username
   }
   const options = {
-    expiresIn = '8h'
-  }
+    expiresIn: '1d'
+}
   return jwt.sign(payload, secrets.jwtSecret, options)
 }
 
